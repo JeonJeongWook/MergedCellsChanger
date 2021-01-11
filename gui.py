@@ -31,6 +31,8 @@ class gui(QWidget):
         startCol = 65
         col = 3
         # endcol = startCol + col - 1
+        print(chr(startCol))    # 65
+
         print('makeExcel start..')
 
         wb = openpyxl.Workbook()
