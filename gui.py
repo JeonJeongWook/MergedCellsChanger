@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QPlainTextEdit
 
 
+
 class gui(QWidget):
     def __init__(self):
         super().__init__()
@@ -13,6 +14,7 @@ class gui(QWidget):
 
         btn = QPushButton(self)
         btn.setText('생성')
+        btn.clicked.connect(self.makeExcel)
 
         vbox = QVBoxLayout()
         vbox.addWidget(ta)
@@ -23,7 +25,8 @@ class gui(QWidget):
         self.setGeometry(300, 300, 300, 200)
         self.show()
 
-    # def btn_clicked(self):
+    def makeExcel(self):
+        #
 
 
 if __name__ == '__main__':
