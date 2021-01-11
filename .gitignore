@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/vscode,pycharm,python
-# Edit at https://www.toptal.com/developers/gitignore?templates=vscode,pycharm,python
+# Created by https://www.toptal.com/developers/gitignore/api/vscode,visualstudiocode,pycharm,python
+# Edit at https://www.toptal.com/developers/gitignore?templates=vscode,visualstudiocode,pycharm,python
 
 ### PyCharm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -245,12 +245,19 @@ dmypy.json
 # profiling data
 .prof
 
-### vscode ###
+### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
-!.vscode/extensions.json
 *.code-workspace
 
-# End of https://www.toptal.com/developers/gitignore/api/vscode,pycharm,python
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+### vscode ###
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# End of https://www.toptal.com/developers/gitignore/api/vscode,visualstudiocode,pycharm,python
