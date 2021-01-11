@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QPlainTextEdit
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QPlainTextEdit, QSpinBox
 
 import openpyxl
 
@@ -10,14 +10,17 @@ class gui(QWidget):
         self.initUI()
 
     def initUI(self):
-        ta = QPlainTextEdit(self)
-        ta.setPlaceholderText('내용 붙여넣기')
+        colCount = QSpinBox(self)
 
         btn = QPushButton(self)
         btn.setText('생성')
-        btn.clicked.connect(self.makeExcel)
+        btn.clicked.connect(lambda :self.makeExcel(colCount.value()))
+
+        ta = QPlainTextEdit(self)
+        ta.setPlaceholderText('내용 붙여넣기')
 
         vbox = QVBoxLayout()
+        vbox.addWidget(colCount)
         vbox.addWidget(ta)
         vbox.addWidget(btn)
 
@@ -26,13 +29,15 @@ class gui(QWidget):
         self.setGeometry(300, 300, 300, 200)
         self.show()
 
-    def makeExcel(self):
+    def makeExcel(self, colCount):
         # A 65 / a 97
         startCol = 65
-        col = 3
-        # endcol = startCol + col - 1
-        print(chr(startCol))    # 65
+        colCount = colCount
+        print(colCount)
 
+
+
+"""
         print('makeExcel start..')
 
         wb = openpyxl.Workbook()
@@ -41,9 +46,9 @@ class gui(QWidget):
         sheet.merge_cells('A1:E4')
         sheet['A1'] = 'testtest'
 
-        wb.save("changed_row.xlsx")
+        # wb.save("changed_row.xlsx")
         print('makeExcel end..')
-
+"""
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = gui()
