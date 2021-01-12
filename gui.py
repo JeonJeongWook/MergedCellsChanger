@@ -42,7 +42,7 @@ class gui(QWidget):
         row_count = self.ta.document().lineCount()
 
         print('merged_col \t> ', merged_col)
-        print('text \t\t> ', text)
+        print('text \t\t>\n', text)
         print("row_count \t> ", row_count)
 
         if text == "":  # NULL
@@ -51,30 +51,21 @@ class gui(QWidget):
             print('makeExcel start..')
             start_col   = 65
             end_col     = start_col + merged_col - 1
+            wb = openpyxl.Workbook()
+            sheet = wb.active
 
             for i in range(0, row_count):
-                # print('start col\t>', start_col, ' str > ', chr(start_col))
-                # print('end col\t>', end_col, ' str > ', chr(end_col))
-                result = chr(start_col) + repr(i) + ':' + chr(end_col) + repr(i)
-                print(result)
+                result = chr(start_col) + repr(i+1) + ':' + chr(end_col) + repr(i+1)
+                idx = str(chr(start_col)+repr(i+1))
+                print('result : ', result, '\nidx : ', idx)
 
+                sheet.merged_cells(result)
+                sheet[idx] = "test"
 
-                wb = openpyxl.Workbook()
-                sheet = wb.active
-
-                # sheet.merge_cells('A1:E4')
-                sheet.merge_cells('A1:E4')
-                sheet['A1'] = 'testtest'
-
-                # wb.save("changed_row.xlsx")
-                print('makeExcel end..')
-
-
-        # print('------end Func\n')
-
-
-"""
-"""
+                # sheet.merge_cells('a1:b1')
+                # sheet['a1'] = "check"
+            print('end')
+            wb.save("changed_row.xlsx")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
