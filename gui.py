@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QPl
 
 import openpyxl
 
-
 class gui(QWidget):
     def __init__(self):
         super().__init__()
@@ -42,7 +41,7 @@ class gui(QWidget):
         row_count = self.ta.document().lineCount()
 
         print('merged_col \t> ', merged_col)
-        print('text \t\t>\n', text)
+        print('text----------\n', text)
         print("row_count \t> ", row_count)
 
         if text == "":  # NULL
@@ -55,15 +54,24 @@ class gui(QWidget):
             sheet = wb.active
 
             for i in range(0, row_count):
-                result = chr(start_col) + repr(i+1) + ':' + chr(end_col) + repr(i+1)
-                idx = str(chr(start_col)+repr(i+1))
-                print('result : ', result, '\nidx : ', idx)
+                result = chr(start_col) + repr(i+1) + ':' + chr(end_col) + repr(i+1)    # A1:b1
+                idx = str(chr(start_col)+repr(i+1))     #A1
 
-                sheet.merged_cells(result)
-                sheet[idx] = "test"
 
+                    '''
+                    # Merging first 3 columns of 1st 3 rows
+                        r1 = 1
+                        r2 = 3
+                        c1 = 1
+                        c2 = 3
+                        sheet.merge_cells(start_row=r1, start_column=c1, end_row=r2, end_column=c2)
+                        https://medium.com/swlh/working-with-spreadsheets-using-python-903202509407
+                    '''
                 # sheet.merge_cells('a1:b1')
                 # sheet['a1'] = "check"
+                sheet.merge_cells(self, result)
+                sheet['a1'] = "check"
+
             print('end')
             wb.save("changed_row.xlsx")
 
