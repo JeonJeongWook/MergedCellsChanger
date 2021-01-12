@@ -1,5 +1,5 @@
 import sys
-
+import os.path
 import openpyxl
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QPlainTextEdit, QSpinBox, QMessageBox, \
     QDesktopWidget
@@ -11,6 +11,8 @@ class GUI(QWidget):
         self.init_ui()
 
     def init_ui(self):
+        self.click_count = 1
+
         self.col_count = QSpinBox(self)
         self.textarea = QPlainTextEdit(self)
         vbox = QVBoxLayout()
@@ -41,29 +43,42 @@ class GUI(QWidget):
 
     # A 65 / a 97
     def make_excel(self):
+        path        = ".\\MCC.xlsx"
+        print('path > ', path)
         merged_col = self.col_count.value()
         text = self.textarea.toPlainText().strip()
         row_count = self.textarea.document().lineCount()
-
         if text == "":  # NULL
             QMessageBox.about(self, "오류", '내용을 입력하세요')
         else:  # Not NULL
-            print('makeExcel start..')
             start_col = 1
             end_col = start_col + merged_col - 1
+            text = self.textarea.toPlainText().split('\n')  # 줄바꿈 기준으로 글자 자르기
 
-            text = self.textarea.toPlainText().split('\n')
+            print(start_col, " / ", merged_col, " / ", text)
 
             wb = openpyxl.Workbook()
             sheet = wb.active
 
+            # 병합된 셀만들기, 값 넣기
             for i in range(0, row_count):
                 sheet.merge_cells(start_row=i + 1, start_column=start_col, end_row=i + 1, end_column=end_col)
                 sheet.cell(row=i + 1, column=1).value = text[i].strip()
 
-            wb.save("./changed_row.xlsx")
+            # 프로세스 사용중이거나 삭제하지 못하면 새로운 파일로
+            if os.path.isfile(path):
+                print("파일존재")
+                filename = ".\\MCC" + str(self.click_count) + ".xlsx"
+                print(filename)
+                wb.save(filename)
+                self.click_count += 1
+            else:
+                print('파일 없음')
+                wb.save(path)
+
             QMessageBox.about(self, "성공", "파일이 생성되었습니다")
 
+    # gui 중앙 위치
     def center(self):
         # geometry of the main window
         qr = self.frameGeometry()
