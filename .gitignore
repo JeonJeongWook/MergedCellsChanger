@@ -260,3 +260,7 @@ dmypy.json
 !.vscode/extensions.json
 
 # End of https://www.toptal.com/developers/gitignore/api/vscode,visualstudiocode,pycharm,python
+
+
+### Excel File ###
+*.xlsx
