@@ -76,10 +76,11 @@ class GUI(QWidget):
                 wb.save(filename)
             QMessageBox.about(self, "성공", "파일이 생성되었습니다")
 
-    # 파일 삭제하는거
+    # MCC파일 삭제하는 함수
     def delete_excel(self):
         print('delete_excel 실행')
 
+    # 파일 저장할때 날짜 형식 가져오는 함수
     def get_time(self):
         now = time.strftime('%y%m%d_%H%M%S')
         return now
