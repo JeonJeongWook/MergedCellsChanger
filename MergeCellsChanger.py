@@ -1,4 +1,5 @@
 import sys
+sys.setrecursionlimit(5000)
 import os.path
 import openpyxl
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QPlainTextEdit, QSpinBox, QMessageBox, \
