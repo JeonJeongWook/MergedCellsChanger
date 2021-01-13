@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QPl
 import time
 
 
-class GUI(QWidget):
+class MergeCellsChanger(QWidget):
     def __init__(self):
         super().__init__()
         self.init_ui()
@@ -33,8 +33,8 @@ class GUI(QWidget):
         btn_make.clicked.connect(self.make_excel)
 
         btn_clear.setText('지우기')
-        # btn_clear.clicked.connect(lambda clear: self.textarea.clear())
-        btn_clear.clicked.connect(self.delete_excel)
+        btn_clear.clicked.connect(lambda clear: self.textarea.clear())
+        # btn_clear.clicked.connect(self.delete_excel)
 
         self.setLayout(vbox)
         self.setWindowTitle('QPushButton')
@@ -80,12 +80,6 @@ class GUI(QWidget):
 
             QMessageBox.about(self, "성공", "파일이 생성되었습니다")
 
-    # MCC파일 삭제하는 함수
-    def delete_excel(self):
-        print('delete_excel 실행')
-        os.remove("MCC*.xlsx")
-        print('check')
-
     # 파일 저장할때 날짜 형식 가져오는 함수
     def get_time(self):
         now = time.strftime('%y%m%d_%H%M%S')
@@ -108,7 +102,7 @@ class GUI(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = GUI()
+    ex = MergeCellsChanger()
     sys.exit(app.exec_())
 
 '''
