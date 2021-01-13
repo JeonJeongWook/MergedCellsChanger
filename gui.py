@@ -43,9 +43,6 @@ class GUI(QWidget):
 
     # A 65 / a 97
     def make_excel(self):
-        filename = ".\\MCC.xlsx"
-        tmp_filename = ".\\~$MCC.xlsx"
-
         merged_col = self.col_count.value()
         text = self.textarea.toPlainText().strip()
         row_count = self.textarea.document().lineCount()
@@ -67,18 +64,27 @@ class GUI(QWidget):
                 sheet.cell(row=i + 1, column=1).value = text[i].strip()
 
             # 파일 실행중일 때(~$ 임시 파일이 있을 시) 현재 시간으로 파일명 생성
-            # 파일 저장 형식[MCC_yyMMdd_hhmmss]
-            if os.path.isfile(tmp_filename):
-                now = self.get_time()
-                filename = ".\\MCC_" + str(now) + ".xlsx"
-                wb.save(filename)
+            # 파일 저장 형식[MCC_yyMMdd_hhmmss]]
+            filename = ".\\MCC_Folder\\MCC.xlsx"
+            tmp_filename = ".\\MCC_Folder\\~$MCC.xlsx"
+
+            if os.path.isdir(".\\MCC_Folder"):
+                print('폴더 존재')
+                if os.path.isfile(tmp_filename):  # 임시파일 있으면(MCC 파일 실행중이면)
+                    now = self.get_time()
+                    filename = ".\\MCC_Folder\\MCC_" + str(now) + ".xlsx"
             else:
-                wb.save(filename)
+                print('폴더 없음 생성함')
+                os.mkdir(".\\MCC_Folder")
+            wb.save(filename)
+
             QMessageBox.about(self, "성공", "파일이 생성되었습니다")
 
     # MCC파일 삭제하는 함수
     def delete_excel(self):
         print('delete_excel 실행')
+        os.remove("MCC*.xlsx")
+        print('check')
 
     # 파일 저장할때 날짜 형식 가져오는 함수
     def get_time(self):
