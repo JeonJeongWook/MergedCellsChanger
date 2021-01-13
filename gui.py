@@ -66,7 +66,7 @@ class GUI(QWidget):
                 sheet.merge_cells(start_row=i + 1, start_column=start_col, end_row=i + 1, end_column=end_col)
                 sheet.cell(row=i + 1, column=1).value = text[i].strip()
 
-            # ~$ 임시 파일이 있을 시 현재 시간으로 파일명 생성
+            # 파일 실행중일 때(~$ 임시 파일이 있을 시) 현재 시간으로 파일명 생성
             # 파일 저장 형식[MCC_yyMMdd_hhmmss]
             if os.path.isfile(tmp_filename):
                 now = self.get_time()
