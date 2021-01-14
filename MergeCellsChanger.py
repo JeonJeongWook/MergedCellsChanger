@@ -2,7 +2,7 @@ import sys
 import os.path
 import openpyxl
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QPlainTextEdit, QSpinBox, QMessageBox, \
-    QDesktopWidget
+    QDesktopWidget, QLabel, QHBoxLayout
 import time
 
 
@@ -12,19 +12,31 @@ class MergeCellsChanger(QWidget):
         self.init_ui()
 
     def init_ui(self):
-        self.col_count = QSpinBox(self)
-        self.textarea = QPlainTextEdit(self)
         vbox = QVBoxLayout()
+
+        hbox_col_bar = QHBoxLayout()
+        lb_col_count = QLabel('병합할 열 개수 ', self)
+        self.sb_col_count = QSpinBox(self)
+
+        self.textarea = QPlainTextEdit(self)
+
+        hbox_btn_bar = QHBoxLayout()
         btn_make = QPushButton(self)
         btn_clear = QPushButton(self)
-        # 병합할 열 개수 | spinbox | 미리보기(A:A, A:B)
 
-        vbox.addWidget(self.col_count)
+        #setting Layout Box
+        hbox_col_bar.addWidget(lb_col_count)
+        hbox_col_bar.addWidget(self.sb_col_count)
+
+        hbox_btn_bar.addWidget(btn_make)
+        hbox_btn_bar.addWidget(btn_clear)
+
+        vbox.addLayout(hbox_col_bar)
         vbox.addWidget(self.textarea)
-        vbox.addWidget(btn_make)
-        vbox.addWidget(btn_clear)
+        vbox.addLayout(hbox_btn_bar)
 
-        self.col_count.setMinimum(1)
+        # setting widget attribute
+        self.sb_col_count.setMinimum(1)
 
         self.textarea.setPlaceholderText('내용 붙여넣기')
         self.textarea.setPlainText("")
@@ -42,11 +54,11 @@ class MergeCellsChanger(QWidget):
 
     # A 65 / a 97
     def make_excel(self):
-        merged_col = self.col_count.value()
+        merged_col = self.sb_col_count.value()
         text = self.textarea.toPlainText().strip().split('\n')
         row_count = self.textarea.document().lineCount()    # 행 개수
 
-        if text == "":  # NULL
+        if text[0] == "":  # NULL
             QMessageBox.about(self, "오류", '내용을 입력하세요')
         else:   # Not NULL
             start_col = 1
