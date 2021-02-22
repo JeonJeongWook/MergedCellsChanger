@@ -111,9 +111,3 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MergeCellsChanger()
     sys.exit(app.exec_())
-
-'''
-    # pip install openpyxl
-    # pip install PyQt5
-    # https://medium.com/swlh/working-with-spreadsheets-using-python-903202509407
-'''
